@@ -142,23 +142,67 @@ const btn = document.querySelector('button');
 // .then(() => {console.log("DONE MOVING")})
 // .catch(() => {console.log("NOT ENOUGH SPACE")})
 
-const fetchNextPlanets = (url = 'https://swapi.dev/api/planets/') => {
-	return axios.get(url);
-}
-const printPlanets = ({ data }) => {
-	console.log(data);
-	for(let planet of data.results) {
-		console.log(planet.name)
+// const fetchNextPlanets = (url = 'https://swapi.dev/api/planets/') => {
+// 	return axios.get(url);
+// }
+// const printPlanets = ({ data }) => {
+// 	console.log(data);
+// 	for(let planet of data.results) {
+// 		console.log(planet.name)
+// 	}
+// 	return Promise.resolve(data.next);
+// }
+// fetchNextPlanets()
+// 	.then(printPlanets)
+// 	.then(fetchNextPlanets)
+// 	.then(printPlanets)
+// 	.then(fetchNextPlanets)
+// 	.then(printPlanets)
+// 	.catch((err) => {
+// 		console.log("In Catch Callback!")
+// 		console.log(err)
+// 	})
+
+// async function getData() {
+// 	const data = axios.get('https://swapi.dev/api/planets/');
+// 	console.log(data);
+// }
+
+// async function greet() {
+// 	return "Hello"
+// }
+// greet().then((val) => {
+// 	console.log("promise :", val)
+// })
+
+// async function add(x,y) {
+// 	if(typeof x !== 'number' || typeof y !== 'number') {
+// 		throw 'X and Y must be numbers'
+// 	}
+// 	return x + y;
+// }
+
+// add('e','r').then(val => {
+// 	console.log(val)
+// }).catch(err => {
+// 	console.log(err)
+// })
+
+// function getPlanets() {
+// 	return axios.get('https://swapi.dev/api/planets/');
+// }
+
+// getPlanets().then((res) => {
+// 	console.log(res.data)
+// })
+
+async function getPlanets() {
+	try {
+		const res = await axios.get('https://swapi.dev/api/plaawdnets/');
+		console.log(res.data)
+	}	catch(e) {
+		console.log("in catch")
+		console.log(e)
 	}
-	return Promise.resolve(data.next);
 }
-fetchNextPlanets()
-	.then(printPlanets)
-	.then(fetchNextPlanets)
-	.then(printPlanets)
-	.then(fetchNextPlanets)
-	.then(printPlanets)
-	.catch((err) => {
-		console.log("In Catch Callback!")
-		console.log(err)
-	})
+getPlanets();
