@@ -142,9 +142,23 @@ const btn = document.querySelector('button');
 // .then(() => {console.log("DONE MOVING")})
 // .catch(() => {console.log("NOT ENOUGH SPACE")})
 
-axios.get('https://swapi.dev/api/planets/').then((res) => {
-	console.log(res.data);
-}).catch((err) => {
-	console.log("In Catch Callback!")
-	console.log(err)
-})
+const fetchNextPlanets = (url = 'https://swapi.dev/api/planets/') => {
+	return axios.get(url);
+}
+const printPlanets = ({ data }) => {
+	console.log(data);
+	for(let planet of data.results) {
+		console.log(planet.name)
+	}
+	return Promise.resolve(data.next);
+}
+fetchNextPlanets()
+	.then(printPlanets)
+	.then(fetchNextPlanets)
+	.then(printPlanets)
+	.then(fetchNextPlanets)
+	.then(printPlanets)
+	.catch((err) => {
+		console.log("In Catch Callback!")
+		console.log(err)
+	})
