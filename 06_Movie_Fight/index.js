@@ -20,7 +20,13 @@ createAutoComplete({
     return `
       <img src="${imgSrc}" />
       ${movie.Title} (${movie.Year})
-    `
+    `;
+  },
+  onOptionSelect(movie) {
+    onMovieSelect(movie);
+  },
+  inputValue(movie) {
+    return movie.Title;
   }
 });
 
