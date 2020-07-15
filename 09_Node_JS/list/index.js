@@ -4,6 +4,8 @@
 
 const fs = require('fs'); // file system module
 const util = require('util');
+const chalk = require('chalk');
+const path = require('path');
 
 //////////////////////////////////////////////////////
 // Method #2 - CALLBACK BASED FUNCTIONS USING PROMISES
@@ -12,14 +14,15 @@ const util = require('util');
 // Method #3 - another with promises
 const { lstat } = fs.promises;
 
+const targetDir = process.argv[2] || process.cwd();
 
-fs.readdir(process.cwd(), async (err, filenames) => {
+fs.readdir(targetDir, async (err, filenames) => {
   if (err) {
     console.log(err);
   }
 
   const statPromises = filenames.map(filename => {
-    return lstat(filename);
+    return lstat(path.join(targetDir, filename));
   });
 
   const allStats = await Promise.all(statPromises);
@@ -27,7 +30,11 @@ fs.readdir(process.cwd(), async (err, filenames) => {
   for (let stats of allStats) {
     const index = allStats.indexOf(stats);
 
-    console.log(filenames[index], stats.isFile());
+    if (stats.isFile()) {
+      console.log(filenames[index]);
+    } else {
+      console.log(chalk.cyan(filenames[index]));
+    }
   }
 
   // for (let filename of filenames) {
